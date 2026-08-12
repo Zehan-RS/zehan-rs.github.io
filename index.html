@@ -30,10 +30,6 @@
       var(--bg);
     color:var(--ink);
     font-family:'Jost',sans-serif;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:28px 14px;
     position:relative;
     overflow-x:hidden;
   }
@@ -50,26 +46,28 @@
 
   .wrap{
     width:100%;
-    max-width:400px;
+    max-width:560px;
+    margin:0 auto;
     position:relative;
+    min-height:100dvh;
   }
 
   .card{
     position:relative;
+    width:100%;
+    min-height:100dvh;
     background:
       linear-gradient(180deg, var(--card) 0%, #0f0c0d 100%);
-    border:1px solid var(--card-edge);
-    padding:40px 26px 52px;
-    box-shadow:
-      0 30px 60px -20px rgba(0,0,0,.7),
-      0 0 0 1px rgba(255,255,255,.02) inset;
-    transform:rotate(-0.6deg);
-    clip-path:polygon(
-      0% 0%, 100% 0%, 100% 97%,
-      93% 100%, 86% 96%, 79% 100%, 72% 97%, 65% 100%,
-      58% 96%, 51% 100%, 44% 97%, 37% 100%, 30% 96%,
-      23% 100%, 16% 97%, 9% 100%, 2% 96%, 0% 100%
-    );
+    padding:44px 26px 24px;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .content{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
   }
 
   /* pieces of tape holding the flyer up */
@@ -77,7 +75,7 @@
     position:absolute;
     width:74px;
     height:24px;
-    top:-11px;
+    top:0;
     background:
       repeating-linear-gradient(115deg, rgba(255,255,255,.14) 0 2px, transparent 2px 6px),
       rgba(230,222,212,.14);
@@ -242,6 +240,7 @@
     font-size:11px;
     letter-spacing:.5px;
     text-transform:uppercase;
+    margin-top:24px;
   }
 
   @media (prefers-reduced-motion: reduce){
@@ -258,6 +257,7 @@
     <div class="tape left"></div>
     <div class="tape right"></div>
 
+    <div class="content">
     <div class="avatar-holder">
       <div class="avatar-glow"></div>
       <!-- Ganti isi div ini dengan <img src="foto-kamu.jpg" alt="Foto profil"> kalau mau pakai foto asli -->
@@ -294,6 +294,7 @@
         <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
       </a>
     </nav>
+    </div>
 
     <footer>© 2026 Zehan — semua tautan</footer>
   </div>
