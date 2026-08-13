@@ -34,6 +34,66 @@
     overflow-x:hidden;
   }
 
+  /* video loop di belakang seluruh halaman */
+  .bg-video{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    z-index:-2;
+    filter:grayscale(.25) contrast(1.1) brightness(.5);
+  }
+  .bg-overlay{
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:
+      radial-gradient(ellipse 120% 80% at 50% -10%, rgba(20,16,18,.35) 0%, rgba(8,8,10,.85) 60%),
+      rgba(8,8,10,.35);
+  }
+
+  /* tombol play/pause audio, mengambang di pojok bawah */
+  .audio-player{
+    position:fixed;
+    right:16px;
+    bottom:16px;
+    z-index:60;
+    display:flex;
+    align-items:center;
+    gap:9px;
+    background:rgba(20,16,17,.85);
+    border:1px solid var(--line);
+    padding:7px 15px 7px 7px;
+    border-radius:999px;
+    backdrop-filter:blur(6px);
+  }
+  .audio-btn{
+    width:34px;
+    height:34px;
+    border-radius:50%;
+    background:var(--blood);
+    border:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    cursor:pointer;
+    flex-shrink:0;
+    padding:0;
+  }
+  .audio-btn svg{ width:15px; height:15px; }
+  .audio-btn .icon-pause{ display:none; }
+  .audio-btn.playing .icon-play{ display:none; }
+  .audio-btn.playing .icon-pause{ display:block; }
+  .audio-label{
+    font-size:10.5px;
+    letter-spacing:.6px;
+    text-transform:uppercase;
+    color:var(--muted);
+    white-space:nowrap;
+  }
+
   /* film-grain overlay, drawn onto canvas by JS, sits above everything */
   #grain{
     position:fixed;
@@ -50,6 +110,7 @@
     margin:0 auto;
     position:relative;
     min-height:100dvh;
+    z-index:1;
   }
 
   .card{
@@ -250,6 +311,24 @@
 </head>
 <body>
 
+<!-- GANTI: ganti "bg-video.mp4" dengan nama file video kamu (upload ke repo yang sama, folder root) -->
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="bg-video.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay"></div>
+
+<!-- GANTI: ganti "audio-track.mp3" dengan nama file audio kamu (upload ke repo yang sama, folder root) -->
+<div class="audio-player">
+  <button id="audioToggle" class="audio-btn" aria-label="Putar audio" type="button">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  </button>
+  <span class="audio-label">Play track</span>
+</div>
+<audio id="bgAudio" loop preload="none">
+  <source src="audio-track.mp3" type="audio/mpeg">
+</audio>
+
 <canvas id="grain"></canvas>
 
 <div class="wrap">
@@ -329,6 +408,21 @@
     if(!reduce){
       setInterval(draw, 140);
     }
+  })();
+
+  // tombol play/pause audio
+  (function(){
+    var audio = document.getElementById('bgAudio');
+    var btn = document.getElementById('audioToggle');
+    btn.addEventListener('click', function(){
+      if(audio.paused){
+        audio.play();
+        btn.classList.add('playing');
+      } else {
+        audio.pause();
+        btn.classList.remove('playing');
+      }
+    });
   })();
 </script>
 
