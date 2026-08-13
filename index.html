@@ -49,8 +49,8 @@
     inset:0;
     z-index:-1;
     background:
-      radial-gradient(ellipse 120% 80% at 50% -10%, rgba(20,16,18,.35) 0%, rgba(8,8,10,.85) 60%),
-      rgba(8,8,10,.35);
+      radial-gradient(ellipse 120% 80% at 50% -10%, rgba(20,16,18,.45) 0%, rgba(8,8,10,.9) 60%),
+      rgba(8,8,10,.55);
   }
 
   /* tombol play/pause audio, mengambang di pojok bawah */
@@ -117,8 +117,6 @@
     position:relative;
     width:100%;
     min-height:100dvh;
-    background:
-      linear-gradient(180deg, var(--card) 0%, #0f0c0d 100%);
     padding:44px 26px 24px;
     display:flex;
     flex-direction:column;
@@ -231,7 +229,8 @@
     align-items:center;
     gap:14px;
     padding:15px 18px;
-    background:#181314;
+    background:rgba(24,19,20,.72);
+    backdrop-filter:blur(7px);
     border:1px solid var(--line);
     color:var(--ink);
     text-decoration:none;
@@ -257,7 +256,7 @@
 
   nav.links a:hover,
   nav.links a:focus-visible{
-    background:#1f1516;
+    background:rgba(31,21,22,.82);
     border-color:var(--blood);
     box-shadow:0 0 0 1px rgba(179,18,27,.4), 0 8px 22px -8px rgba(179,18,27,.5);
     transform:translateX(3px);
