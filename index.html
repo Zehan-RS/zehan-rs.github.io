@@ -83,9 +83,9 @@
     padding:0;
   }
   .audio-btn svg{ width:15px; height:15px; }
-  .audio-btn .icon-pause{ display:none; }
-  .audio-btn.playing .icon-play{ display:none; }
-  .audio-btn.playing .icon-pause{ display:block; }
+  .audio-btn .icon-unmute{ display:none; }
+  .audio-btn.on .icon-mute{ display:none; }
+  .audio-btn.on .icon-unmute{ display:block; }
   .audio-label{
     font-size:10.5px;
     letter-spacing:.6px;
@@ -311,22 +311,18 @@
 <body>
 
 <!-- GANTI: ganti "bg-video.mp4" dengan nama file video kamu (upload ke repo yang sama, folder root) -->
-<video class="bg-video" autoplay muted loop playsinline>
+<video id="bgVideo" class="bg-video" autoplay muted loop playsinline>
   <source src="bg-video.mp4" type="video/mp4">
 </video>
 <div class="bg-overlay"></div>
 
-<!-- GANTI: ganti "audio-track.mp3" dengan nama file audio kamu (upload ke repo yang sama, folder root) -->
 <div class="audio-player">
-  <button id="audioToggle" class="audio-btn" aria-label="Putar audio" type="button">
-    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+  <button id="audioToggle" class="audio-btn" aria-label="Nyalakan suara video" type="button">
+    <svg class="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 8l4 8M21 8l-4 8"/></svg>
+    <svg class="icon-unmute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 9a4 4 0 0 1 0 6"/><path d="M18.5 6.5a8 8 0 0 1 0 11"/></svg>
   </button>
-  <span class="audio-label">Play track</span>
+  <span class="audio-label">Sound</span>
 </div>
-<audio id="bgAudio" loop preload="none">
-  <source src="audio-track.mp3" type="audio/mpeg">
-</audio>
 
 <canvas id="grain"></canvas>
 
@@ -409,17 +405,17 @@
     }
   })();
 
-  // tombol play/pause audio
+  // tombol nyalain/matiin suara video
   (function(){
-    var audio = document.getElementById('bgAudio');
+    var video = document.getElementById('bgVideo');
     var btn = document.getElementById('audioToggle');
     btn.addEventListener('click', function(){
-      if(audio.paused){
-        audio.play();
-        btn.classList.add('playing');
+      video.muted = !video.muted;
+      if(!video.muted){
+        video.play();
+        btn.classList.add('on');
       } else {
-        audio.pause();
-        btn.classList.remove('playing');
+        btn.classList.remove('on');
       }
     });
   })();
